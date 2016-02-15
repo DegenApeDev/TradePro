@@ -36,6 +36,7 @@ class MainClass extends PluginBase implements Listener{
         }
         
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+        if($sender instanceof Player){
             $name = $sender->getName();
                 if ($command->getName() == "trade") {
                     $this->getLogger()->info("[TradePro]" . "IT WORKS!!" . $name . "USED IT!!!!");
