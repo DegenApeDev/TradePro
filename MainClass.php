@@ -1,4 +1,5 @@
 <?php
+
 namespace Hittmana\TradePro;
 /*
  *   ________     _____      ____     _____    _______           _____     _____    ______
@@ -16,34 +17,30 @@ namespace Hittmana\TradePro;
  *     TradePro can also be found on GitHub and if you wish you can send a fork request to add to
  *     this project. Please ask if you do wish to fork this to use in your own project.
 */                        
+
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Player;
 use pocketmine\event\Listener;
 use pocketmine\item\Item;
-class MainClass extends PluginBase implements Listener 
-{
-    public function onEnable()
-        {
+
+class MainClass extends PluginBase implements Listener{
+    public function onEnable(){
         $this->getLogger()->info("TradePro enabled v0.3.5");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         }
-    public function onDisable()
-        {
+        
+    public function onDisable(){
         $this->getLogger()->info("TradePro disabled v0.3.5zx");
         }
-    public function onCommand(CommandSender $sender, Command $command, $label, array $args) 
-        {
-        if($sender instanceof Player) 
-        {
+        
+    public function onCommand(CommandSender $sender, Command $command, $label, array $args){
             $name = $sender->getName();
-                if ($command->getName() == "trade") 
-                    {
+                if ($command->getName() == "trade") {
                     $this->getLogger()->info("[TradePro]" . "IT WORKS!!" . $name . "USED IT!!!!");
                     $recipient = $this->getServer()->getPlayer($args[0]);
-                        if($recipient instanceof Player)
-                            {
+                        if($recipient instanceof Player){
                             $trader = $sender->getName();
                             $recipient->sendMessage("[TradePro]" . $trader . " wants to trade with you!");  
                             $sender->sendMessage("[TradePro]" . "You sent a trade request " . $recipient . ". Lets hope they say YES!");
@@ -53,14 +50,12 @@ class MainClass extends PluginBase implements Listener
                             $amount2 = $args[4];
                             return true;
                             }
-                            else 
-                            {
+                            else{
                                  $this->getLogger()->info("Must be run ingame!");
                                 return false;
                         // /trade 0<player> 1<item youll trade> 2<amount youll trade> 3<what you want> 4<amount you want>
                             }
-            if ($command->getName() == "tradeaccept")
-                {
+            if ($command->getName() == "tradeaccept"){
                     $sender->sendMessage("[TradePro]" . "You accepted trade request from " . $trader);
                     $trader->sendMessage("[TradePro]" . $sender . " accepted!");
                     $player = $sender;
@@ -72,8 +67,7 @@ class MainClass extends PluginBase implements Listener
                     $this->getServer()->getPlayer($player)->getInventory()->removeItem(Item::get($item2, 0, $amount2));
                 return true;
                 }
-            if ($command->getName() == "tradedecline") 
-                {
+            if ($command->getName() == "tradedecline"){
                     $sender->sendMessage("[TradePro]" . "You declined the trade request from " . $trader);
                     $trader->sendMessage("[TradePro]" . $sender . " declined your trade request");
                     return true;
